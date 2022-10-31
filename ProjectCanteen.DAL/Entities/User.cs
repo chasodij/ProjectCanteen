@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace ProjectCanteen.DAL.Entities
 {
-    public  class User : IdentityUser
+    public class User : IdentityUser
     {
-        public 
+        public string FirstName { get; set; } = String.Empty;
+        public string LastName { get; set; } = String.Empty;
+        public string? Patronymic { get; set; }
     }
 }
