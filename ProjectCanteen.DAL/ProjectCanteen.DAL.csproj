@@ -12,8 +12,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FluentValidation\" />
-  </ItemGroup>
-
 </Project>
