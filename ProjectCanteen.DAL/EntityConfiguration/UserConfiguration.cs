@@ -4,7 +4,7 @@ using ProjectCanteen.DAL.Entities;
 
 namespace ProjectCanteen.DAL.EntityConfiguration
 {
-    internal class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
