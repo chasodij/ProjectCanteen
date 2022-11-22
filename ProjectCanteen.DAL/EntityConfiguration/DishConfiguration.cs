@@ -14,6 +14,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
             builder.HasOne(dish => dish.Canteen).WithMany(canteen => canteen.Dishes);
 
             builder.Property(dish => dish.Name).HasMaxLength(Constants.MaxDishNameLength);
+            builder.Property(dish => dish.Price).HasPrecision(Constants.PriceUAHPrecision, Constants.PriceUAHScale);
         }
     }
 }

@@ -8,7 +8,8 @@ namespace ProjectCanteen.DAL.FluentValidation
         public DishValidator()
         {
             RuleFor(dish => dish.Name).NotEmpty().Length(Constants.MinDishNameLength, Constants.MaxDishNameLength);
-            RuleFor(dish => dish.Price).InclusiveBetween(Constants.MinPriceUAH, Constants.MaxPriceUAH);
+            RuleFor(dish => dish.Price).InclusiveBetween(Constants.MinPriceUAH, Constants.MaxPriceUAH)
+                .ScalePrecision(Constants.PriceUAHScale, Constants.PriceUAHPrecision);
             RuleForEach(dish => dish.IngredientInDishes).SetValidator(new IngredientInDishValidator());
             RuleFor(dish => dish.Canteen).NotNull().SetValidator(new CanteenValidator());
             RuleForEach(dish => dish.MenuOfTheDays).SetValidator(new MenuOfTheDayValidator());

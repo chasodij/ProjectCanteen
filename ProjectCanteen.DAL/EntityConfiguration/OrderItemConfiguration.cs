@@ -12,6 +12,8 @@ namespace ProjectCanteen.DAL.EntityConfiguration
 
             builder.HasOne(item => item.Order).WithMany(order => order.OrderItems);
             builder.HasOne(item => item.Dish).WithMany(dish => dish.OrderItems);
+
+            builder.Property(item => item.DishPrice).HasPrecision(Constants.PriceUAHPrecision, Constants.PriceUAHScale);
         }
     }
 }
