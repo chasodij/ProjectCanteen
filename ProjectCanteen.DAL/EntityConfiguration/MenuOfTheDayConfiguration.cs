@@ -10,7 +10,6 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(menu => menu.Id);
 
-            builder.HasOne(menu => menu.Canteen).WithMany(canteen => canteen.MenuOfTheDays);
             builder.HasMany(menu => menu.Dishes).WithMany(dish => dish.MenuOfTheDays);
         }
     }

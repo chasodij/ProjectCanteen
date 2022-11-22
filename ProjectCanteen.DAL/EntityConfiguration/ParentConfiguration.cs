@@ -12,7 +12,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
 
             builder.HasMany(parent => parent.Children).WithMany(child => child.Parents);
             builder.HasMany(parent => parent.Orders).WithOne(order => order.Purchaser);
-            builder.HasOne(parent => parent.User).WithOne();
+            builder.HasOne(parent => parent.User);
         }
     }
 }

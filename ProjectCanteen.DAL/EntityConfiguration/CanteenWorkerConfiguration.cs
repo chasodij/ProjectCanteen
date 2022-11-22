@@ -10,8 +10,8 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(worker => worker.Id);
 
-            builder.HasOne(worker => worker.User).WithOne().IsRequired();
-            builder.HasOne(worker => worker.Canteen).WithMany(canteen => canteen.CanteenWorkers).IsRequired();
+            builder.HasOne(worker => worker.User);
+            builder.HasOne(worker => worker.Canteen).WithMany(canteen => canteen.CanteenWorkers);
         }
     }
 }

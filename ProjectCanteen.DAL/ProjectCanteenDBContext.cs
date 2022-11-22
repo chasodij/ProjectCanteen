@@ -24,6 +24,11 @@ namespace ProjectCanteen.DAL
         public DbSet<School> Schools { get; set; }
         public DbSet<Student> Students { get; set; }
 
+        public ProjectCanteenDBContext(DbContextOptions<ProjectCanteenDBContext> options) : base(options)
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new CanteenConfiguration());
@@ -42,6 +47,7 @@ namespace ProjectCanteen.DAL
             builder.ApplyConfiguration(new SchoolConfiguration());
             builder.ApplyConfiguration(new StudentConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
+            base.OnModelCreating(builder);
         }
     }
 }

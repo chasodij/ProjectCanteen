@@ -7,7 +7,6 @@ namespace ProjectCanteen.DAL.FluentValidation
     {
         public MenuOfTheDayValidator()
         {
-            RuleFor(menu => menu.Canteen).NotNull().SetValidator(new CanteenValidator());
             RuleFor(menu => menu.Day).NotNull().GreaterThan(Constants.MinDate);
             RuleForEach(menu => menu.Dishes).SetValidator(new DishValidator());
         }

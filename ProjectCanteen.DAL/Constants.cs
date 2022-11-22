@@ -21,7 +21,9 @@ namespace ProjectCanteen.DAL
 
         public const decimal MinPriceUAH = 0;
         public const decimal MaxPriceUAH = 10000;
-        
+        public const int PriceUAHPrecision = 6;
+        public const int PriceUAHScale = 2;
+
         public const double MinMacronutrients = 0;
         public const double MaxMacronutrients = 100;
 

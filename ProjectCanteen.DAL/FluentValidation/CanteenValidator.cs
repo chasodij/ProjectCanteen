@@ -11,9 +11,7 @@ namespace ProjectCanteen.DAL.FluentValidation
             RuleFor(canteen => canteen.School).NotNull().SetValidator(new SchoolValidator());
             RuleFor(canteen => canteen.Terminal).SetValidator(new UserValidator());
             RuleForEach(canteen => canteen.CanteenWorkers).SetValidator(new CanteenWorkerValidator());
-            RuleForEach(canteen => canteen.Dishes).SetValidator(new DishValidator());
             RuleForEach(canteen => canteen.Ingredients).SetValidator(new IngredientValidator());
-            RuleForEach(canteen => canteen.MenuOfTheDays).SetValidator(new MenuOfTheDayValidator());
         }
     }
 }

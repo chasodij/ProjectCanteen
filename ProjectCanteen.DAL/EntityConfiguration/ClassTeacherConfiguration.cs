@@ -10,7 +10,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(teacher => teacher.Id);
 
-            builder.HasOne(teacher => teacher.User).WithOne();
+            builder.HasOne(teacher => teacher.User);
             builder.HasOne(teacher => teacher.Class).WithOne(cur_class => cur_class.ClassTeacher);
         }
     }
