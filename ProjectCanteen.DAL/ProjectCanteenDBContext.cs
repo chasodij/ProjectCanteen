@@ -21,6 +21,7 @@ namespace ProjectCanteen.DAL
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Parent> Parents { get; set; }
+        public DbSet<SchoolAdmin> SchoolAdmins { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Student> Students { get; set; }
 
@@ -44,6 +45,7 @@ namespace ProjectCanteen.DAL
             builder.ApplyConfiguration(new OrderConfiguration());
             builder.ApplyConfiguration(new OrderItemConfiguration());
             builder.ApplyConfiguration(new ParentConfiguration());
+            builder.ApplyConfiguration(new SchoolAdminConfiguration());
             builder.ApplyConfiguration(new SchoolConfiguration());
             builder.ApplyConfiguration(new StudentConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
