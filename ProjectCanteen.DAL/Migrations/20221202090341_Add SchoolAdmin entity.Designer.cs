@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectCanteen.DAL;
 
@@ -11,9 +12,11 @@ using ProjectCanteen.DAL;
 namespace ProjectCanteen.DAL.Migrations
 {
     [DbContext(typeof(ProjectCanteenDBContext))]
-    partial class ProjectCanteenDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221202090341_Add SchoolAdmin entity")]
+    partial class AddSchoolAdminentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
