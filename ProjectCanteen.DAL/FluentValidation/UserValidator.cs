@@ -7,7 +7,7 @@ namespace ProjectCanteen.DAL.FluentValidation
     {
         public UserValidator()
         {
-            RuleFor(user => user.UserName).NotEmpty().MaximumLength(Constants.MaxNameLength);
+            RuleFor(user => user.FirstName).NotEmpty().MaximumLength(Constants.MaxNameLength);
             RuleFor(user => user.LastName).NotEmpty().MaximumLength(Constants.MaxNameLength);
             RuleFor(user => user.Patronymic).NotEmpty().MaximumLength(Constants.MaxNameLength);
             RuleFor(user => user.Email).NotEmpty().EmailAddress().Length(Constants.MinEmailLength, Constants.MaxEmailLength);
