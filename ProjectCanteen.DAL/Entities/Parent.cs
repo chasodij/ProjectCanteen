@@ -3,8 +3,8 @@
     public class Parent
     {
         public int Id { get; set; }
-        public List<Student> Children { get; set; } = new List<Student>();
+        public List<Student> Children { get; set; }
         public User User { get; set; }
-        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<Order> Orders { get; set; }
     }
 }

@@ -6,6 +6,6 @@
         public DateTime OrderTime { get; set; }
         public Parent Purchaser { get; set; }
         public Student Student { get; set; }
-        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public List<OrderItem> OrderItems { get; set; }
     }
 }
