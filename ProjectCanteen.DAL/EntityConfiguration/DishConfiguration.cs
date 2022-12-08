@@ -15,6 +15,9 @@ namespace ProjectCanteen.DAL.EntityConfiguration
             builder.HasMany(dish => dish.OrderItems).WithOne(item => item.Dish);
             builder.HasOne(dish => dish.MenuSection).WithMany(section => section.Dishes);
 
+            builder.Navigation(ingredient => ingredient.IngredientInDishes).AutoInclude();
+            builder.Navigation(ingredient => ingredient.MenuSection).AutoInclude();
+
             builder.Property(dish => dish.Name).HasMaxLength(Constants.MaxDishNameLength);
             builder.Property(dish => dish.Price).HasPrecision(Constants.PriceUAHPrecision, Constants.PriceUAHScale);
         }

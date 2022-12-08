@@ -11,6 +11,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
             builder.HasKey(menu => menu.Id);
 
             builder.HasMany(menu => menu.Dishes).WithMany(dish => dish.MenuOfTheDays);
+            builder.Navigation(ingredient => ingredient.Dishes).AutoInclude();
         }
     }
 }
