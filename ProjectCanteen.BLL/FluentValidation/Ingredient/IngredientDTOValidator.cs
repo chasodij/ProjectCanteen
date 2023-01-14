@@ -4,7 +4,7 @@ using ProjectCanteen.DAL.UnitOfWork;
 
 namespace ProjectCanteen.DAL.FluentValidation
 {
-    public class IngredientDTOValidator : AbstractValidator<IngredientDTO>
+    public class IngredientDTOValidator : AbstractValidator<UpdateIngredientDTO>
     {
         public IngredientDTOValidator(IProjectCanteenUoW _unitOfWork)
         {

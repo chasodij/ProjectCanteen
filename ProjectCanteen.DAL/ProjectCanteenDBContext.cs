@@ -20,6 +20,7 @@ namespace ProjectCanteen.DAL
         public DbSet<MenuSection> MenuSections { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<SchoolAdmin> SchoolAdmins { get; set; }
         public DbSet<School> Schools { get; set; }

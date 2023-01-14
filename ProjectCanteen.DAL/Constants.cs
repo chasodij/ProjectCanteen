@@ -34,6 +34,7 @@
         public const int MinTagLength = 1;
         public const int MaxTagLength = 50;
 
+        public const int MinNameLength = 1;
         public const int MaxNameLength = 50;
 
         public const int MinPasswordLength = 8;

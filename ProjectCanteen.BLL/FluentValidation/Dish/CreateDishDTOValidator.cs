@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProjectCanteen.BLL.DTOs.Dish;
+using ProjectCanteen.BLL.DTOs.IngredientInDish;
 using ProjectCanteen.DAL;
 
 namespace ProjectCanteen.BLL.FluentValidation

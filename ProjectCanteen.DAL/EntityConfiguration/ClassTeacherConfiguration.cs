@@ -10,8 +10,10 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(teacher => teacher.Id);
 
-            builder.HasOne(teacher => teacher.User);
             builder.HasOne(teacher => teacher.Class).WithOne(cur_class => cur_class.ClassTeacher);
+
+            builder.HasOne(teacher => teacher.User).WithOne(user => user.ClassTeacher)
+                .HasForeignKey<ClassTeacher>(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

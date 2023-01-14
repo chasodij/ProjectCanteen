@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using ProjectCanteen.BLL.DTOs.Dish;
+using ProjectCanteen.BLL.DTOs.IngredientInDish;
 using ProjectCanteen.DAL;
 
 namespace ProjectCanteen.BLL.FluentValidation
 {
-    public class DishDTOValidator : AbstractValidator<DishDTO>
+    public class DishDTOValidator : AbstractValidator<UpdateDishDTO>
     {
         public DishDTOValidator(IValidator<AddIngredientToDishDTO> validator)
         {

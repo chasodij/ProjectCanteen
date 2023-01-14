@@ -6,6 +6,13 @@ namespace ProjectCanteen.DAL.Repositories.Implementations.Dish
 {
     public class DishRepository : BaseRepository<Entities.Dish>, IDishRepository
     {
+        public DishRepository()
+        {
+            DefaultInclude = func => func.Include(dish => dish.Canteen)
+                .Include(dish => dish.IngredientInDishes).ThenInclude(ingredient => ingredient.Ingredient)
+                .Include(dish => dish.MenuSection);
+        }
+
         public async Task<Entities.Dish?> GetByIdAsync(int id)
         {
             return await GetFirstOrDefaultAsync(x => x.Id == id);

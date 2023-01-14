@@ -10,13 +10,21 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(canteen => canteen.Id);
 
-            builder.HasOne(canteen => canteen.School).WithMany(school => school.Canteens);
-            builder.HasOne(canteen => canteen.Terminal);
-            builder.HasMany(canteen => canteen.CanteenWorkers).WithOne(worker => worker.Canteen);
-            builder.HasMany(canteen => canteen.Ingredients).WithOne(ingredient => ingredient.Canteen).HasForeignKey(ingredient => ingredient.CanteenId);
-
             builder.Property(canteen => canteen.Name).HasMaxLength(Constants.MaxTitleLength);
 
+            builder.HasOne(canteen => canteen.School).WithMany(school => school.Canteens)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(canteen => canteen.Terminal).WithOne()
+                .HasForeignKey<Canteen>(x => x.TerminalId).OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasMany(canteen => canteen.CanteenWorkers).WithOne(worker => worker.Canteen)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(canteen => canteen.Ingredients).WithOne(ingredient => ingredient.Canteen)
+                .HasForeignKey(ingredient => ingredient.CanteenId).OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasMany(canteen => canteen.Dishes).WithOne(dish => dish.Canteen).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

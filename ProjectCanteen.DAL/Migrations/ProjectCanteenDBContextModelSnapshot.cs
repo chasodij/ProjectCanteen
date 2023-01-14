@@ -37,6 +37,21 @@ namespace ProjectCanteen.DAL.Migrations
                     b.ToTable("DietaryRestrictionIngredient");
                 });
 
+            modelBuilder.Entity("DietaryRestrictionStudent", b =>
+                {
+                    b.Property<int>("DietaryRestrictionsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DietaryRestrictionsId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("DietaryRestrictionStudent");
+                });
+
             modelBuilder.Entity("DishMenuOfTheDay", b =>
                 {
                     b.Property<int>("DishesId")
@@ -208,6 +223,15 @@ namespace ProjectCanteen.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal?>("MaxStudentDebt")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("MinHoursToCreateMenu")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MinHoursToOrder")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -223,7 +247,9 @@ namespace ProjectCanteen.DAL.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.HasIndex("TerminalId");
+                    b.HasIndex("TerminalId")
+                        .IsUnique()
+                        .HasFilter("[TerminalId] IS NOT NULL");
 
                     b.ToTable("Canteens");
                 });
@@ -240,13 +266,15 @@ namespace ProjectCanteen.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CanteenId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("CanteenWorkers");
                 });
@@ -286,6 +314,7 @@ namespace ProjectCanteen.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -293,7 +322,8 @@ namespace ProjectCanteen.DAL.Migrations
                     b.HasIndex("ClassId")
                         .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("ClassTeachers");
                 });
@@ -329,6 +359,9 @@ namespace ProjectCanteen.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CanteenId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MenuSectionId")
                         .HasColumnType("int");
 
@@ -342,6 +375,8 @@ namespace ProjectCanteen.DAL.Migrations
                         .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CanteenId");
 
                     b.HasIndex("MenuSectionId");
 
@@ -409,10 +444,18 @@ namespace ProjectCanteen.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CanteenId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Day")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsCreatedOrUpdatedLate")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CanteenId");
 
                     b.ToTable("MenuOfTheDays");
                 });
@@ -446,16 +489,29 @@ namespace ProjectCanteen.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsOrderedLate")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MenuOfTheDayId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PurchaserId")
+                    b.Property<int?>("PurchaserId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MenuOfTheDayId");
+
+                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("PurchaserId");
 
@@ -486,6 +542,23 @@ namespace ProjectCanteen.DAL.Migrations
                     b.ToTable("OrderItems");
                 });
 
+            modelBuilder.Entity("ProjectCanteen.DAL.Entities.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatuses");
+                });
+
             modelBuilder.Entity("ProjectCanteen.DAL.Entities.Parent", b =>
                 {
                     b.Property<int>("Id")
@@ -495,11 +568,13 @@ namespace ProjectCanteen.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Parents");
                 });
@@ -534,13 +609,15 @@ namespace ProjectCanteen.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SchoolId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("SchoolAdmins");
                 });
@@ -556,22 +633,26 @@ namespace ProjectCanteen.DAL.Migrations
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("CurrentDebt")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<bool>("IsAllowedToUseAccount")
                         .HasColumnType("bit");
 
                     b.Property<string>("TagId")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClassId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Students");
                 });
@@ -669,6 +750,21 @@ namespace ProjectCanteen.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DietaryRestrictionStudent", b =>
+                {
+                    b.HasOne("ProjectCanteen.DAL.Entities.DietaryRestriction", null)
+                        .WithMany()
+                        .HasForeignKey("DietaryRestrictionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectCanteen.DAL.Entities.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DishMenuOfTheDay", b =>
                 {
                     b.HasOne("ProjectCanteen.DAL.Entities.Dish", null)
@@ -740,13 +836,13 @@ namespace ProjectCanteen.DAL.Migrations
                     b.HasOne("ProjectCanteen.DAL.Entities.Student", null)
                         .WithMany()
                         .HasForeignKey("ChildrenId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.Parent", null)
                         .WithMany()
                         .HasForeignKey("ParentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
@@ -755,12 +851,13 @@ namespace ProjectCanteen.DAL.Migrations
                     b.HasOne("ProjectCanteen.DAL.Entities.School", "School")
                         .WithMany("Canteens")
                         .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.User", "Terminal")
-                        .WithMany()
-                        .HasForeignKey("TerminalId");
+                        .WithOne()
+                        .HasForeignKey("ProjectCanteen.DAL.Entities.Canteen", "TerminalId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("School");
 
@@ -772,12 +869,14 @@ namespace ProjectCanteen.DAL.Migrations
                     b.HasOne("ProjectCanteen.DAL.Entities.Canteen", "Canteen")
                         .WithMany("CanteenWorkers")
                         .HasForeignKey("CanteenId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("CanteenWorker")
+                        .HasForeignKey("ProjectCanteen.DAL.Entities.CanteenWorker", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Canteen");
 
@@ -804,8 +903,10 @@ namespace ProjectCanteen.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("ClassTeacher")
+                        .HasForeignKey("ProjectCanteen.DAL.Entities.ClassTeacher", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Class");
 
@@ -814,11 +915,19 @@ namespace ProjectCanteen.DAL.Migrations
 
             modelBuilder.Entity("ProjectCanteen.DAL.Entities.Dish", b =>
                 {
+                    b.HasOne("ProjectCanteen.DAL.Entities.Canteen", "Canteen")
+                        .WithMany("Dishes")
+                        .HasForeignKey("CanteenId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("ProjectCanteen.DAL.Entities.MenuSection", "MenuSection")
                         .WithMany("Dishes")
                         .HasForeignKey("MenuSectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Canteen");
 
                     b.Navigation("MenuSection");
                 });
@@ -827,7 +936,8 @@ namespace ProjectCanteen.DAL.Migrations
                 {
                     b.HasOne("ProjectCanteen.DAL.Entities.Canteen", "Canteen")
                         .WithMany("Ingredients")
-                        .HasForeignKey("CanteenId");
+                        .HasForeignKey("CanteenId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Canteen");
                 });
@@ -841,7 +951,7 @@ namespace ProjectCanteen.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("IngredientInDishes")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -851,19 +961,44 @@ namespace ProjectCanteen.DAL.Migrations
                     b.Navigation("Ingredient");
                 });
 
-            modelBuilder.Entity("ProjectCanteen.DAL.Entities.Order", b =>
+            modelBuilder.Entity("ProjectCanteen.DAL.Entities.MenuOfTheDay", b =>
                 {
-                    b.HasOne("ProjectCanteen.DAL.Entities.Parent", "Purchaser")
-                        .WithMany("Orders")
-                        .HasForeignKey("PurchaserId")
+                    b.HasOne("ProjectCanteen.DAL.Entities.Canteen", "Canteen")
+                        .WithMany()
+                        .HasForeignKey("CanteenId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Canteen");
+                });
+
+            modelBuilder.Entity("ProjectCanteen.DAL.Entities.Order", b =>
+                {
+                    b.HasOne("ProjectCanteen.DAL.Entities.MenuOfTheDay", "MenuOfTheDay")
+                        .WithMany("Orders")
+                        .HasForeignKey("MenuOfTheDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectCanteen.DAL.Entities.OrderStatus", "OrderStatus")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectCanteen.DAL.Entities.Parent", "Purchaser")
+                        .WithMany("Orders")
+                        .HasForeignKey("PurchaserId");
 
                     b.HasOne("ProjectCanteen.DAL.Entities.Student", "Student")
                         .WithMany("Orders")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("MenuOfTheDay");
+
+                    b.Navigation("OrderStatus");
 
                     b.Navigation("Purchaser");
 
@@ -892,8 +1027,10 @@ namespace ProjectCanteen.DAL.Migrations
             modelBuilder.Entity("ProjectCanteen.DAL.Entities.Parent", b =>
                 {
                     b.HasOne("ProjectCanteen.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("Parent")
+                        .HasForeignKey("ProjectCanteen.DAL.Entities.Parent", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -907,8 +1044,10 @@ namespace ProjectCanteen.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("SchoolAdmin")
+                        .HasForeignKey("ProjectCanteen.DAL.Entities.SchoolAdmin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("School");
 
@@ -920,12 +1059,14 @@ namespace ProjectCanteen.DAL.Migrations
                     b.HasOne("ProjectCanteen.DAL.Entities.Class", "Class")
                         .WithMany("Students")
                         .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ProjectCanteen.DAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("Student")
+                        .HasForeignKey("ProjectCanteen.DAL.Entities.Student", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Class");
 
@@ -935,6 +1076,8 @@ namespace ProjectCanteen.DAL.Migrations
             modelBuilder.Entity("ProjectCanteen.DAL.Entities.Canteen", b =>
                 {
                     b.Navigation("CanteenWorkers");
+
+                    b.Navigation("Dishes");
 
                     b.Navigation("Ingredients");
                 });
@@ -952,6 +1095,16 @@ namespace ProjectCanteen.DAL.Migrations
                     b.Navigation("IngredientInDishes");
 
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("ProjectCanteen.DAL.Entities.Ingredient", b =>
+                {
+                    b.Navigation("IngredientInDishes");
+                });
+
+            modelBuilder.Entity("ProjectCanteen.DAL.Entities.MenuOfTheDay", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ProjectCanteen.DAL.Entities.MenuSection", b =>
@@ -979,6 +1132,19 @@ namespace ProjectCanteen.DAL.Migrations
             modelBuilder.Entity("ProjectCanteen.DAL.Entities.Student", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("ProjectCanteen.DAL.Entities.User", b =>
+                {
+                    b.Navigation("CanteenWorker");
+
+                    b.Navigation("ClassTeacher");
+
+                    b.Navigation("Parent");
+
+                    b.Navigation("SchoolAdmin");
+
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }

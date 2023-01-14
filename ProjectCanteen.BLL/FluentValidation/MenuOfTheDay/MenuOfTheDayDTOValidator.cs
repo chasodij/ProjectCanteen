@@ -4,7 +4,7 @@ using ProjectCanteen.DAL;
 
 namespace ProjectCanteen.BLL.FluentValidation.MenuOfTheDay
 {
-    public class MenuOfTheDayDTOValidator : AbstractValidator<MenuOfTheDayDTO>
+    public class MenuOfTheDayDTOValidator : AbstractValidator<UpdateMenuOfTheDayDTO>
     {
         public MenuOfTheDayDTOValidator()
         {

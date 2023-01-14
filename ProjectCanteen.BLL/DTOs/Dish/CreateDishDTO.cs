@@ -1,4 +1,6 @@
-﻿namespace ProjectCanteen.BLL.DTOs.Dish
+﻿using ProjectCanteen.BLL.DTOs.IngredientInDish;
+
+namespace ProjectCanteen.BLL.DTOs.Dish
 {
     public class CreateDishDTO
     {

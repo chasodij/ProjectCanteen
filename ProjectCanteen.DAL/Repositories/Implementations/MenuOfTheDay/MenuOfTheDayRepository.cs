@@ -1,10 +1,17 @@
-﻿using ProjectCanteen.DAL.Repositories.Implementations.NewFolder;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectCanteen.DAL.Repositories.Implementations.NewFolder;
 using ProjectCanteen.DAL.Repositories.Interfaces.MenuOfTheDay;
 
 namespace ProjectCanteen.DAL.Repositories.Implementations.MenuOfTheDay
 {
     public class MenuOfTheDayRepository : BaseRepository<Entities.MenuOfTheDay>, IMenuOfTheDayRepository
     {
+        public MenuOfTheDayRepository()
+        {
+            DefaultInclude = func => func.Include(ingredient => ingredient.Canteen)
+                .Include(ingredient => ingredient.Dishes);
+        }
+
         public async Task<Entities.MenuOfTheDay?> GetByIdAsync(int id)
         {
             return await GetFirstOrDefaultAsync(x => x.Id == id);
@@ -12,11 +19,18 @@ namespace ProjectCanteen.DAL.Repositories.Implementations.MenuOfTheDay
 
         public override async Task UpdateAsync(Entities.MenuOfTheDay entity)
         {
-            var connected_entity = DbContext.MenuOfTheDays.FirstOrDefault(x => x.Id == entity.Id);
+            var connected_entity = DefaultInclude(DbContext.MenuOfTheDays).FirstOrDefault(x => x.Id == entity.Id);
 
             if (connected_entity == null)
             {
                 throw new Exception();
+            }
+
+            TimeSpan span = entity.Day.Subtract(DateTime.UtcNow);
+
+            if (span.TotalHours <= connected_entity.Canteen.MinHoursToCreateMenu)
+            {
+                entity.IsCreatedOrUpdatedLate = true;
             }
 
             DbContext.Entry(connected_entity).CurrentValues.SetValues(entity);

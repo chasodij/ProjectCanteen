@@ -6,8 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProjectCanteen.BLL.Configuration;
 using ProjectCanteen.BLL.FluentValidation;
-using ProjectCanteen.BLL.Services.Implementations;
-using ProjectCanteen.BLL.Services.Interfaces;
 using ProjectCanteen.DAL;
 using ProjectCanteen.DAL.Entities;
 using ProjectCanteen.DAL.UnitOfWork;
@@ -47,19 +45,19 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     {
         options.SignIn.RequireConfirmedAccount = true;
         options.User.RequireUniqueEmail = true;
+        options.ClaimsIdentity.UserIdClaimType = "Id";
     })
     .AddEntityFrameworkStores<ProjectCanteenDBContext>();
 
-builder.Services.AddDbContext<ProjectCanteenDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ProjectCanteenDBContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        x => x.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 
 builder.Services.AddLocalization();
 
-builder.Services.AddScoped<IJwtService, JwtService>();
-builder.Services.AddScoped<IAuthentificationService, AuthentificationService>();
-builder.Services.AddScoped<IIngredientService, IngredientService>();
-builder.Services.AddScoped<IDishService, DishService>();
-builder.Services.AddScoped<IMenuOfTheDayService, MenuOfTheDayService>();
+builder.Services.AddServices();
 builder.Services.AddScoped<IProjectCanteenUoW, ProjectCanteenUoW>();
+
 builder.Services.AddValidatorsFromAssemblyContaining<SignInDTOValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

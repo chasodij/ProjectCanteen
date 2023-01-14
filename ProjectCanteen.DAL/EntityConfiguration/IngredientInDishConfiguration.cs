@@ -10,7 +10,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(ingredient => new { ingredient.IngredientId, ingredient.DishId });
 
-            builder.HasOne(ingredient => ingredient.Ingredient).WithMany();
+            builder.HasOne(ingredient => ingredient.Ingredient).WithMany(ingredient => ingredient.IngredientInDishes).HasForeignKey(ingredient => ingredient.IngredientId);
             builder.HasOne(ingredient => ingredient.Dish).WithMany(dish => dish.IngredientInDishes).HasForeignKey(ingredient => ingredient.DishId);
         }
     }

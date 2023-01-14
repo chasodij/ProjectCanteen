@@ -10,7 +10,9 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(worker => worker.Id);
 
-            builder.HasOne(worker => worker.User);
+            builder.HasOne(worker => worker.User).WithOne(user => user.CanteenWorker)
+                .HasForeignKey<CanteenWorker>(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+
             builder.HasOne(worker => worker.Canteen).WithMany(canteen => canteen.CanteenWorkers);
         }
     }

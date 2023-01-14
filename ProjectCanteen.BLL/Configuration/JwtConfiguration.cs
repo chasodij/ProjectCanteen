@@ -1,4 +1,4 @@
-﻿namespace ProjectCanteen.BLL.Configuration
+﻿    namespace ProjectCanteen.BLL.Configuration
 {
     public class JwtConfiguration
     {

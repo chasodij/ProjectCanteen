@@ -5,9 +5,14 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCanteen.WebApi", "ProjectCanteen\ProjectCanteen.WebApi.csproj", "{7FD69034-B52C-4232-895E-3E8AA5BF3248}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectCanteen.DAL", "ProjectCanteen.DAL\ProjectCanteen.DAL.csproj", "{FED3FAC8-4A93-4F9D-9BF9-CEAA672AAEBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCanteen.DAL", "ProjectCanteen.DAL\ProjectCanteen.DAL.csproj", "{FED3FAC8-4A93-4F9D-9BF9-CEAA672AAEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectCanteen.BLL", "ProjectCanteen.BLL\ProjectCanteen.BLL.csproj", "{45BB633D-8133-477F-8211-285F4B031356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectCanteen.BLL", "ProjectCanteen.BLL\ProjectCanteen.BLL.csproj", "{45BB633D-8133-477F-8211-285F4B031356}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{947F0C46-4136-45D2-ADC0-77E6C21B75B1}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

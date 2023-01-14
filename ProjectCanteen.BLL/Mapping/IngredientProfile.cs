@@ -8,11 +8,14 @@ namespace ProjectCanteen.BLL.Mapping
     {
         public IngredientProfile()
         {
-            CreateMap<Ingredient, IngredientDTO>()
-                .ForMember(dest => dest.DietaryRestrictionsId, opt => opt.MapFrom(src =>
-                    src.DietaryRestrictions.Select(restriction => restriction.Id)));
+            CreateMap<Ingredient, FullIngredientDTO>()
+                .ForMember(dest => dest.CanteenId, opt => opt
+                    .MapFrom(src => src.Canteen.Id))
+                .ForMember(dest => dest.CanteenName, opt => opt
+                    .MapFrom(src => src.Canteen.Name))
+                .ForMember(dest => dest.DietaryRestrictions, opt => opt.MapFrom(src => src.DietaryRestrictions));
 
-            CreateMap<IngredientDTO, Ingredient>()
+            CreateMap<UpdateIngredientDTO, Ingredient>()
                 .ForMember(dest => dest.DietaryRestrictions, opt => opt.MapFrom(src =>
                     src.DietaryRestrictionsId.Select(id => new DietaryRestriction { Id = id })));
 

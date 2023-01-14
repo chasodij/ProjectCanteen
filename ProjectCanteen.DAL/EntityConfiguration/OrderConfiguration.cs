@@ -13,8 +13,6 @@ namespace ProjectCanteen.DAL.EntityConfiguration
             builder.HasOne(order => order.Purchaser).WithMany(parent => parent.Orders);
             builder.HasOne(order => order.Student).WithMany(student => student.Orders);
             builder.HasMany(order => order.OrderItems).WithOne(item => item.Order);
-
-
         }
     }
 }

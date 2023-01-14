@@ -8,20 +8,15 @@ namespace ProjectCanteen.BLL.Mapping
     {
         public DishProfile()
         {
-            CreateMap<Dish, DishDTO>()
-                .ForMember(dest => dest.MenuSectionId, opt => opt.MapFrom(src => src.MenuSection.Id))
-                .ForMember(dest => dest.IngredientsInDish, opt => opt.MapFrom(src => src.IngredientInDishes
-                    .Select(x => new AddIngredientToDishDTO { IngredientId = x.IngredientId, AmountInGrams = x.AmountInGrams })));
+            CreateMap<Dish, FullDishDTO>()
+                .ForMember(dest => dest.IngredientsInDish, opt => opt.MapFrom(src => src.IngredientInDishes));
 
-            CreateMap<DishDTO, Dish>()
+            CreateMap<Dish, ShortDishDTO>();
+
+            CreateMap<UpdateDishDTO, Dish>()
                 .ForMember(dest => dest.MenuSection, opt => opt.MapFrom(src => new MenuSection { Id = src.MenuSectionId }))
                 .ForMember(dest => dest.IngredientInDishes, opt => opt.MapFrom(src => src.IngredientsInDish
                     .Select(x => new IngredientInDish { DishId = src.Id, IngredientId = x.IngredientId, AmountInGrams = x.AmountInGrams })));
-
-            CreateMap<Dish, CreateDishDTO>()
-                .ForMember(dest => dest.MenuSectionId, opt => opt.MapFrom(src => src.MenuSection.Id))
-                .ForMember(dest => dest.IngredientsInDish, opt => opt.MapFrom(src => src.IngredientInDishes
-                    .Select(x => new AddIngredientToDishDTO { IngredientId = x.IngredientId, AmountInGrams = x.AmountInGrams })));
 
             CreateMap<CreateDishDTO, Dish>()
                 .ForMember(dest => dest.MenuSection, opt => opt.MapFrom(src => new MenuSection { Id = src.MenuSectionId }))
