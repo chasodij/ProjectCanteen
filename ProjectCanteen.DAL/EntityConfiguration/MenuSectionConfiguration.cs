@@ -11,6 +11,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
             builder.HasKey(section => section.Id);
 
             builder.Property(section => section.Name).HasMaxLength(Constants.MaxTitleLength);
+            builder.HasMany(section => section.Dishes).WithOne(dish => dish.MenuSection);
         }
     }
 }

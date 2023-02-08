@@ -4,17 +4,17 @@ using ProjectCanteen.DAL.Entities;
 
 namespace ProjectCanteen.DAL.EntityConfiguration
 {
-    internal class ClassConfiguration : IEntityTypeConfiguration<Class>
+    public class ClassConfiguration : IEntityTypeConfiguration<Class>
     {
         public void Configure(EntityTypeBuilder<Class> builder)
         {
             builder.HasKey(cur_class => cur_class.Id);
 
-            builder.HasOne(cur_class => cur_class.ClassTeacher).WithOne(teacher => teacher.Class);
+            builder.HasOne(cur_class => cur_class.ClassTeacher).WithOne(teacher => teacher.Class).HasForeignKey<ClassTeacher>(teacher => teacher.ClassId);
             builder.HasOne(cur_class => cur_class.School).WithMany(school => school.Classes);
             builder.HasMany(cur_class => cur_class.Students).WithOne(student => student.Class);
 
-            builder.Property(cur_class => cur_class.ClassName).HasMaxLength(Constants.MaxClassNameLength);
+            builder.Property(cur_class => cur_class.ClassName).HasMaxLength(Constants.MaxTitleLength);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ProjectCanteen.DAL.EntityConfiguration
         {
             builder.HasKey(ingredient => ingredient.Id);
 
-            builder.HasOne(ingredient => ingredient.Canteen).WithMany();
+            builder.HasOne(ingredient => ingredient.Canteen).WithMany(canteen => canteen.Ingredients).HasForeignKey(ingredient => ingredient.CanteenId);
             builder.HasMany(ingredient => ingredient.DietaryRestrictions).WithMany(restriction => restriction.Ingredients);
 
             builder.Property(ingredient => ingredient.Name).HasMaxLength(Constants.MaxTitleLength);

@@ -11,9 +11,12 @@ namespace ProjectCanteen.DAL.EntityConfiguration
             builder.HasKey(dish => dish.Id);
 
             builder.HasMany(dish => dish.IngredientInDishes).WithOne(ingredient => ingredient.Dish);
-            builder.HasOne(dish => dish.Canteen).WithMany(canteen => canteen.Dishes);
+            builder.HasMany(dish => dish.MenuOfTheDays).WithMany(menu => menu.Dishes);
+            builder.HasMany(dish => dish.OrderItems).WithOne(item => item.Dish);
+            builder.HasOne(dish => dish.MenuSection).WithMany(section => section.Dishes);
 
             builder.Property(dish => dish.Name).HasMaxLength(Constants.MaxDishNameLength);
+            builder.Property(dish => dish.Price).HasPrecision(Constants.PriceUAHPrecision, Constants.PriceUAHScale);
         }
     }
 }

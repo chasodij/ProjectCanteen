@@ -8,10 +8,12 @@ namespace ProjectCanteen.DAL.EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasKey(item => new { item.Order, item.Dish });
+            builder.HasKey(item => new { item.OrderId, item.DishId });
 
-            builder.HasOne(item => item.Order).WithMany(order => order.OrderItems);
-            builder.HasOne(item => item.Dish).WithMany(dish => dish.OrderItems);
+            builder.HasOne(item => item.Order).WithMany(order => order.OrderItems).HasForeignKey(item => item.OrderId);
+            builder.HasOne(item => item.Dish).WithMany(dish => dish.OrderItems).HasForeignKey(item => item.DishId);
+
+            builder.Property(item => item.DishPrice).HasPrecision(Constants.PriceUAHPrecision, Constants.PriceUAHScale);
         }
     }
 }

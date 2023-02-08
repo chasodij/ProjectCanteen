@@ -3,11 +3,12 @@
     public class Dish
     {
         public int Id { get; set; }
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; }
         public decimal Price { get; set; }
-        public List<IngredientInDish> IngredientInDishes { get; set; } = new List<IngredientInDish>();
+        public MenuSection MenuSection { get; set; }
         public Canteen Canteen { get; set; }
-        public List<MenuOfTheDay> MenuOfTheDays { get; set; } = new List<MenuOfTheDay>();
-        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public List<IngredientInDish> IngredientInDishes { get; set; }
+        public List<MenuOfTheDay> MenuOfTheDays { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
     }
 }
